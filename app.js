@@ -15,7 +15,7 @@ mongoose.connect('mongodb://127.0.0.1:27017/shopping-app')
     console.log(err);
 })
 
-app.set('view engine','ejs');
+app.set('view engine','ejs'); // for setting view engine type
 app.set('views',path.join(__dirname,'views'));
 app.use(express.static(path.join(__dirname,'public'))); // for public folder
 

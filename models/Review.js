@@ -14,7 +14,7 @@ const reviewSchema= new mongoose.Schema({
         type:String,
         trim:true
     }
-})
+},{timestamps:true}) // database me time and date store karne ke liye
 
 // Model
 let Review = mongoose.model('Review',reviewSchema);

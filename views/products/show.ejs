@@ -54,8 +54,16 @@
               <% for(let review of foundProduct.reviews){ %>
                 <div class="card mt-3">
 
+                  <!-- date time show karne ke liye ->show review schema last me add kiya hai -->
+                  <p class="card-title mx-3">
+                    <% if(review.createdAt){ %>
+                      <%=review.createdAt.toDateString()%>
+                    <% } %>
+                  </p>
+
                   <!-- Static star show karne ke liye copied from github scalability wala -->
-                  <p class="starability-result mt-3" data-rating="<%=review.rating%>"> Rated: <%=review.rating%> stars</p>
+                  <p class="starability-result mt-3 mx-3" data-rating="<%=review.rating%>"> Rated: <%=review.rating%> stars</p>
+                  
 
                   <div class="card-body">
                     <p class="card-text">Comment: <%=review.comment%></p>

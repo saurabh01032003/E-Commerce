@@ -22,7 +22,13 @@ const productSchema= new mongoose.Schema({
     desc : {
         type:String,
         trim:true
-    }
+    },
+    reviews:[ // this will map review of 1 product to -> many reviews of review Model
+        {
+            type: mongoose.Schema.ObjectId, // Review Model ke andar various reviews ko extract karna hai(uske liye reviews ki id chaiye apne ko)
+            ref: 'Review'
+        }
+    ]
 })
 
 // Model

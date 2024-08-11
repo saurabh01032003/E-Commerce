@@ -4,9 +4,10 @@ const app = express();
 const path = require('path');
 const mongoose = require('mongoose');
 const seedDB = require('./seed')
-const productRoutes = require('./routes/product') // waha se export hua hai(routes folder ke andar product.js se)
 const ejsMate = require('ejs-mate');
 const methodOverride = require('method-override');
+const productRoutes = require('./routes/product') // waha se export hua hai(routes folder ke andar product.js se)
+const reviewRoutes = require('./routes/review') // waha se export hua hai(routes folder ke andar review.js se)
 
 mongoose.connect('mongodb://127.0.0.1:27017/shopping-app')
 .then(()=>{
@@ -30,6 +31,7 @@ app.use(methodOverride('_method')); // method-override ke liye
 
 
 app.use(productRoutes); // so that har ek incoming request ke liye path check kiya jaye
+app.use(reviewRoutes); // so that har ek incoming request ke liye path check kiya jaye
 
 app.listen(8080,()=>{
     console.log("Server Connected at port 8080");

@@ -28,7 +28,7 @@ router.post('/products',async (req,res)=>{
 // To Show particular Product
 router.get('/products/:id',async (req,res)=>{
     let {id} = req.params;
-    let foundProduct = await Product.findById(id); // Model ka method hai(findById) -> returns a promise
+    let foundProduct = await Product.findById(id).populate('reviews'); // Model ka method hai(findById) -> returns a promise //reviews ke array ke sath populate karo(link bana diya dono me)
     res.render('products/show',{foundProduct});
 })
 

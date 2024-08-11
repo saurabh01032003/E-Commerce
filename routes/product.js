@@ -1,6 +1,7 @@
 
 const express = require('express');
 const Product = require('../models/Product');
+const Review = require('../models/Review');
 const router = express.Router() // mini instance/server (app.get ka istemal karna tha lekin hum puri ki puri application ko export nahi kara sakte from app.js) isliye iska alternative ek method hai ->express.Router()
 
 
@@ -50,6 +51,13 @@ router.patch('/products/:id',async (req,res)=>{
 // to delete a product (index.ejs ke andar form hai uska =>button click karne pr hi hoga)
 router.delete('/products/:id', async (req,res)=>{
     let {id} = req.params;
+    const product = await Product.findById(id);
+    // Upar jo product mila hai uska => delete all reviews (as it is an array)
+    // Product se pahle reviews delete kardo uska -> kyonki review bhi db me jagah le raha
+    for(let id of product.reviews){
+        await Review.findByIdAndDelete(id);
+    }
+
     await Product.findByIdAndDelete(id); // method to delete from db
     res.redirect('/products');
 })

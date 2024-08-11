@@ -39,4 +39,19 @@ router.get('/products/:id/edit',async (req,res)=>{
     res.render('products/edit',{foundProduct});
 })
 
+// To actully edit the data in Db(hi when edit ka form submit hoga)
+router.patch('/products/:id',async (req,res)=>{
+    let {id} = req.params;
+    let {name,img,price, desc} = req.body;
+    let updatedProduct =  await Product.findByIdAndUpdate(id , {name,img,price, desc}); // pahla argument me edit hone se pahle ki id(req.params), dusre me edit hone ke baad ka data(req.body) -> MongoDB ka method hai -> DB me update kardega purane data ko edited se
+    res.redirect(`/products/${id}`);
+})
+
+// to delete a product (index.ejs ke andar form hai uska =>button click karne pr hi hoga)
+router.delete('/products/:id', async (req,res)=>{
+    let {id} = req.params;
+    await Product.findByIdAndDelete(id); // method to delete from db
+    res.redirect('/products');
+})
+
 module.exports = router;

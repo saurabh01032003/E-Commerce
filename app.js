@@ -6,6 +6,7 @@ const mongoose = require('mongoose');
 const seedDB = require('./seed')
 const productRoutes = require('./routes/product') // waha se export hua hai(routes folder ke andar product.js se)
 const ejsMate = require('ejs-mate');
+const methodOverride = require('method-override');
 
 mongoose.connect('mongodb://127.0.0.1:27017/shopping-app')
 .then(()=>{
@@ -21,6 +22,7 @@ app.set('view engine','ejs'); // it emplies view engine .ejs file read karega //
 app.set('views',path.join(__dirname,'views'));
 app.use(express.static(path.join(__dirname,'public'))); // for public folder
 app.use(express.urlencoded({extended:true})); // undefine de raha tha req.body on post request (in routes->product.js-> '/products/new' on post request)
+app.use(methodOverride('_method')); // method-override ke liye
 
 
 // seeding database

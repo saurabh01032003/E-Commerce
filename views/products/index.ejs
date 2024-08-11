@@ -1,23 +1,27 @@
-<!DOCTYPE html>
-<html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
+<!-- layout() -> ek method hai na ki folder name -->
+<% layout('layouts/boylerplate')%>
 
-<body>
-    <ul>
-        <% for(let item of products){ %>
-            <li>
-                <img src="<%=item.img%>" alt="">
-                <h3><%=item.name%></h3>
-                <h5><%=item.price%></h5>
-                <p><%=item.desc%></p>
-            </li>
-        <% } %>
-    </ul>
+<%- include('../partials/navbar') %>
+
+<div class="row">
+
+    <% for(let item of products){ %>
+        <!-- Bootstrap se jakr normal card copy kar diya hai -->
+        <div class="col-lg-4 mt-3">
+        <div class="card shadow mx-auto" style="width: 18rem;">
+            <img src="<%=item.img%>" class="card-img-top" alt="...">
+            <div class="card-body">
+              <h4 class="card-title"><%=item.name%></h4>
+              <h6 class="card-title"><%=item.price%></h6>
+              <p class="card-text"><%=item.desc%></p>
+              <a href="/products/<%=item._id%>" class="btn btn-primary">View Product</a>
+            </div>
+          </div>
+        </div>
+    <% } %>
+</div>
+        
 </body>
 
 </html>

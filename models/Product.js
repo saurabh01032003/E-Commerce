@@ -15,8 +15,8 @@ const productSchema= new mongoose.Schema({
 
     },
     price:{
-        type:Number,
-        min: 0, // negative price thodi n hogi
+        type:String, // kyonki mereko Rs 5000 likhna hai
+        // min: 0, // negative price thodi n hogi
         required:true,
     },
     desc : {
@@ -28,4 +28,4 @@ const productSchema= new mongoose.Schema({
 // Model
 let Product = mongoose.model('Product',productSchema);
 
-module.exports = Product; // export karna padega
+module.exports = Product; // export karna padega (routes ke andar product.js) me gaya hai

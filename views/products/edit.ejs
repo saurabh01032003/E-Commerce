@@ -1,0 +1,41 @@
+
+<!-- layout() -> ek method hai na ki folder name -->
+<% layout('layouts/boylerplate')%>
+
+<%- include('../partials/navbar') %>
+
+<div class="row">
+    <div class="col-6 mx-auto">
+
+
+        <form action="/products" method="POST">
+            <div class="mb-3">
+                <label for="naam">Name :</label>
+                <!-- Value attribute is required -->
+                <input type="text" class="form-control" name="name" id="naam" placeholder="Enter Product Name" value="<%=foundProduct.name%>"> 
+            </div>
+
+            <div class="mb-3">
+                <label for="imag">Image :</label>
+                <input type="text" class="form-control" name="img" id="imag" placeholder="enter image address" value="<%=foundProduct.img%>">
+            </div>
+
+            <div class="mb-3">
+                <label for="paisa">Price :</label>
+                <input type="text" class="form-control" name="price" placeholder="Enter Product Name" value="<%=foundProduct.price%>">
+            </div>
+
+            <div class="mb-3">
+                <label for="desc">Desc :</label>
+                <textarea name="desc" id="desc" placeholder="Description of broduct">value="<%=foundProduct.desc%>"</textarea>
+            </div>
+
+            <button class="btn btn-sm btn-success" type="submit">Edit Product</button>
+        </form>
+    </div>
+    
+</div>
+        
+</body>
+
+</html>

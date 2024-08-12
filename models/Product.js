@@ -31,7 +31,19 @@ const productSchema= new mongoose.Schema({
     ]
 })
 
+// // Alternate method to delete reviews before deleting product( production pr use hota hai) -> Chal nahi raha tha abhi doubt sir se poochna-> alternate method use karo tabtk
+
+// // https://mongoosejs.com/docs/api/model.html#Model.findByIdAndUpdate()
+// // Use above as reference -> middleware jo BTS(behind the scene) mongodb operations karwane par use hota hai and iske andar 'pre' & 'post' middleware
+// // hote hai which are basically used over the schema and before the model in js class
+
+// productSchema.post('findOneAndDelete', async function(product) {
+//     if(product.reviews.length > 0){
+//         await Review.deleteMany({_id:{$in:product.reviews}})
+//     }
+// })
+
+
 // Model
 let Product = mongoose.model('Product',productSchema);
-
 module.exports = Product; // export karna padega (routes ke andar product.js) me gaya hai

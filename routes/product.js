@@ -1,6 +1,6 @@
 
 const express = require('express');
-const Product = require('../models/Product');
+const Product = require('../models/Product');// export hua tha models ke andar Product.js se (routes ke andar product.js) me gaya hai
 const Review = require('../models/Review');
 const router = express.Router() // mini instance/server (app.get ka istemal karna tha lekin hum puri ki puri application ko export nahi kara sakte from app.js) isliye iska alternative ek method hai ->express.Router()
 
@@ -52,14 +52,16 @@ router.patch('/products/:id',async (req,res)=>{
 router.delete('/products/:id', async (req,res)=>{
     let {id} = req.params;
     const product = await Product.findById(id);
-    // Upar jo product mila hai uska => delete all reviews (as it is an array)
-    // Product se pahle reviews delete kardo uska -> kyonki review bhi db me jagah le raha
+
+    // // Upar jo product mila hai uska => delete all reviews (as it is an array)
+    // // Product se pahle reviews delete kardo uska -> kyonki review bhi db me jagah le raha
     for(let id of product.reviews){
         await Review.findByIdAndDelete(id);
     }
 
-    await Product.findByIdAndDelete(id); // method to delete from db
+    await Product.findByIdAndDelete(id); // method to delete from db // is method ke chalne par schema me jo middleware hai 'findOneAndDelete' wo trigger ho raha -> jo yaha se id gyi hai whi product me catch hui hai waha
     res.redirect('/products');
 })
+
 
 module.exports = router;

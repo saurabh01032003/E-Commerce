@@ -35,6 +35,7 @@ router.post('/products',validateProduct, async (req,res)=>{ // validate hone ke 
     try{
         let {name,img,price,desc} = req.body; // post request se data hame req.body me milti hai
         await Product.create({name,img,price,desc}); // mongoDB method -> returns promise in js (isliye async and await)
+        req.flash('success', 'New product added successfully');
         res.redirect('/products');
     }
     catch(e){
@@ -47,7 +48,7 @@ router.get('/products/:id',async (req,res)=>{
     try{
         let {id} = req.params;
         let foundProduct = await Product.findById(id).populate('reviews'); // Model ka method hai(findById) -> returns a promise //reviews ke array ke sath populate karo(link bana diya dono me)
-        res.render('products/show',{foundProduct});
+        res.render('products/show',{foundProduct, msg:req.flash('msg')}); // second argument is flash messages
     }
     catch(e){
         res.status(500).render('error',{err:e.message});
@@ -72,6 +73,9 @@ router.patch('/products/:id',validateProduct,async (req,res)=>{
         let {id} = req.params;
         let {name,img,price, desc} = req.body;
         let updatedProduct =  await Product.findByIdAndUpdate(id , {name,img,price, desc}); // pahla argument me edit hone se pahle ki id(req.params), dusre me edit hone ke baad ka data(req.body) -> MongoDB ka method hai -> DB me update kardega purane data ko edited se
+
+        // req.flash('msg', 'Product edited successfully');
+        req.flash('success', 'Product edited successfully');
         res.redirect(`/products/${id}`);
     }
     catch(e){
@@ -92,6 +96,7 @@ router.delete('/products/:id', async (req,res)=>{
         }
 
         await Product.findByIdAndDelete(id); // method to delete from db // is method ke chalne par schema me jo middleware hai 'findOneAndDelete' wo trigger ho raha -> jo yaha se id gyi hai whi product me catch hui hai waha
+        req.flash('success', 'Product deleted successfully');
         res.redirect('/products');
     }
     catch(e){

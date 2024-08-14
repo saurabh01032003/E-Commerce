@@ -3,9 +3,19 @@
 <% layout('layouts/boylerplate')%>
 
 <%- include('../partials/navbar') %>
+<!-- for showing flash message -> partials ke andar flash.ejs include karne pr -->
+<%- include('../partials/flash') %> 
 
 <div class="row">
 
+  <!-- displaying flash
+  <% if(msg && msg.length){ %>
+  <div class="alert alert-success" role="alert">
+    <strong><%=msg%></strong>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+  <% } %> -->
+   
         <!-- Bootstrap se jakr normal card copy kar diya hai -->
         <div class="col-lg-6 mt-3">
         <div class="card shadow mx-auto" style="width: 18rem;">

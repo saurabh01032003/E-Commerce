@@ -20,4 +20,13 @@ const validateReview = (req,res,next)=>{
     next();
 }
 
-module.exports = {validateReview , validateProduct}
+const isLoggedIn = (req,res,next)=>{
+    // agar authenticated user hoga tabhi next pe jao nahi toh send it to login page first
+    if(!req.isAuthenticated()){
+        req.flash('error','please login first!');
+        return res.redirect('/login');
+    }
+    next();
+}
+
+module.exports = {isLoggedIn, validateReview , validateProduct}

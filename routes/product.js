@@ -7,7 +7,7 @@ const {validateProduct, isLoggedIn} = require('../middleware')
 
 
 // To show all the products
-router.get('/products',isLoggedIn, async (req,res)=>{
+router.get('/products', async (req,res)=>{
     try{
         // database se product access karke than send to index.ejs(res.render)
         let products = await Product.find(); // javascript ke sath kaam karte hai to mongoDB ke methods returs promise isliye async-await laga do

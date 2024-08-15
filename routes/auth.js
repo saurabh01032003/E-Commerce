@@ -10,10 +10,27 @@ router.get('/register' ,(req,res)=>{
 
 // actually want to register a user in my db
 router.post('/register',async (req,res)=>{ // POST method se form submit hoga(views-> auth-> signup.ejs ke andar ka form) chalega ye route
-    let {email,password,username} = req.body; // post method se form submit hua hai
-    const user =  new User({email,username}); // user ko password alag argument me dena hai -> user ko ek me see documentation (plm register)
-    const newUser = await User.register(user,password); // register() is an static method -> isko hum schema ya model ke upar laga sakte(User is a method) -> naye user ko db me add karwana hai
-    res.redirect('/login');
+
+    try{
+        let {email,password,username} = req.body; // post method se form submit hua hai
+        const user =  new User({email,username}); // user ko password alag argument me dena hai -> user ko ek me see documentation (plm register)
+        const newUser = await User.register(user,password); // register() is an static method -> isko hum schema ya model ke upar laga sakte(User is a method) -> naye user ko db me add karwana hai
+        // res.redirect('/login');  // register karne ke baad hame dubara login karne ki jarurat nahi hai
+        
+        // what i want is ki main login ho jau page pe after registering only
+        req.login(newUser,function(err){
+            if(err){
+                return next(err); // agar error aaya tb
+            }
+            req.flash('success', 'Welcome, You registered successfully!');
+            return res.redirect('/products');// nahi aaya any error after registering tb products wale route ko hit kardo(login hogaya)
+        })
+    }
+    catch(e){
+        req.flash('error',e.message);
+        return res.redirect('/signup');
+    }
+
 })
 
 // to get login form

@@ -34,7 +34,11 @@ let configSession = { //achha dikhne ke liye variable me assign kara hai
     secret: 'keyboard cat',
     resave: false,
     saveUninitialized: true,
-    // cookie: { secure: true }
+    cookie: { 
+        httpOnly : true,
+        expires:Date.now() + 7*24*60*60*1000, // abhi se 7 days baad expire ho jayega 
+        maxAge: 7*24*60*60*1000 // '/product' route pe jake inspect karke application -> cookies -> http wale ka time dekho -> 7 din baad expire hone ka timer start ho chuka hai
+    }
 }
 
 

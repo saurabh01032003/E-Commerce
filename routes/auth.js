@@ -46,7 +46,8 @@ router.post('/login' ,
         failureMessage:true
     }),
     (req,res)=>{
-        req.flash('success','Welcome Back !');
+        let {username} = req.body;
+        req.flash('success',`Welcome back ${username}!`);
         res.redirect('/products');
 });
 

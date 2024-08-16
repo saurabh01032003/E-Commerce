@@ -77,6 +77,10 @@ app.use(reviewRoutes); // so that har ek incoming request ke liye path check kiy
 app.use(authRoutes); // so that har ek incoming request ke liye path check kiya jaye
 app.use(cartRoutes); // so that har ek incoming request ke liye path check kiya jaye
 
+app.get('/',(req,res)=>{
+    res.render('home');
+})
+
 app.listen(8080,()=>{
     console.log("Server Connected at port 8080");
 })

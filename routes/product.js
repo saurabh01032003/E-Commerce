@@ -3,7 +3,7 @@ const express = require('express');
 const Product = require('../models/Product');// export hua tha models ke andar Product.js se (routes ke andar product.js) me gaya hai
 const Review = require('../models/Review');
 const router = express.Router() // mini instance/server (app.get ka istemal karna tha lekin hum puri ki puri application ko export nahi kara sakte from app.js) isliye iska alternative ek method hai ->express.Router()
-const {validateProduct, isLoggedIn} = require('../middleware')
+const {validateProduct, isLoggedIn, isSeller,isProductAuthor} = require('../middleware')
 
 
 // To show all the products
@@ -31,10 +31,10 @@ router.get('/products/new',isLoggedIn,(req,res)=>{
 })
 
 // To actually add the products(form submit karne pr yaha aayega post->request hai)
-router.post('/products',isLoggedIn,validateProduct, async (req,res)=>{ // validate hone ke baad ->next() ke call hone ke baad call back function chalega async wala
+router.post('/products', isLoggedIn,validateProduct, isSeller, async (req,res)=>{ // validate hone ke baad ->next() ke call hone ke baad call back function chalega async wala
     try{
         let {name,img,price,desc} = req.body; // post request se data hame req.body me milti hai
-        await Product.create({name,img,price,desc}); // mongoDB method -> returns promise in js (isliye async and await)
+        await Product.create({name,img,price,desc,author: req.user._id}); // mongoDB method -> returns promise in js (isliye async and await)
         req.flash('success', 'New product added successfully');
         res.redirect('/products');
     }
@@ -84,7 +84,7 @@ router.patch('/products/:id' ,isLoggedIn,validateProduct,async (req,res)=>{
 })
 
 // to delete a product (index.ejs ke andar form hai uska =>button click karne pr hi hoga)
-router.delete('/products/:id' ,isLoggedIn, async (req,res)=>{
+router.delete('/products/:id' ,isLoggedIn,isProductAuthor, async (req,res)=>{
     try{
         let {id} = req.params;
         const product = await Product.findById(id);

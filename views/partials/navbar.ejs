@@ -9,9 +9,11 @@
           <li class="nav-item">
             <a class="nav-link active" aria-current="page" href="/products">Home</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/products/new">New</a>
-          </li>
+          <% if(currentUser && currentUser.role === 'seller'){ %>
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="/products/new">New</a>
+            </li>
+          <% } %>
           <!-- <li class="nav-item">
             <a class="nav-link disabled" aria-disabled="true">Disabled</a>
           </li> -->

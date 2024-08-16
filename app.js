@@ -18,6 +18,7 @@ const User = require('./models/User');
 const productRoutes = require('./routes/product') // waha se export hua hai(routes folder ke andar product.js se)
 const reviewRoutes = require('./routes/review') // waha se export hua hai(routes folder ke andar review.js se)
 const authRoutes = require('./routes/auth') // waha se export hua hai(routes folder ke andar auth.js se)
+const cartRoutes = require('./routes/cart') // waha se export hua hai(routes folder ke andar cart.js se)
 
 
 mongoose.connect('mongodb://127.0.0.1:27017/shopping-app')
@@ -74,6 +75,7 @@ passport.use(new LocalStrategy(User.authenticate()));
 app.use(productRoutes); // so that har ek incoming request ke liye path check kiya jaye
 app.use(reviewRoutes); // so that har ek incoming request ke liye path check kiya jaye
 app.use(authRoutes); // so that har ek incoming request ke liye path check kiya jaye
+app.use(cartRoutes); // so that har ek incoming request ke liye path check kiya jaye
 
 app.listen(8080,()=>{
     console.log("Server Connected at port 8080");

@@ -29,8 +29,8 @@ const productSchema= new mongoose.Schema({
             ref: 'Review'
         }
     ] ,
-    author:{
-        type: mongoose.Schema.Types.ObjectId,
+    author:{ // ek product ka ek hi author ho sakta 
+        type: mongoose.Schema.Types.ObjectId, // user ki id ke liye(User model se extract kara hai property)
         ref: 'User'
     }
 })

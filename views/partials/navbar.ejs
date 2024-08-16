@@ -21,6 +21,8 @@
           <% if(!currentUser){ %>
             <a href="/login" class="nav-link mx-2">Login</a>
           <% }else{ %>
+            <!-- Login hone ke baad kon se user ne login kara tha uska naam navbar me dikha dete hai -->
+            <a href="#" class="nam-link">Hello, <%= currentUser.username%></a>
             <!-- else Kisi ne login kar diya hai to nav-bar me sirf logot dikhega -->
             <a href="/" class="nav-link mx-2">
               <i class="fa-solid fa-cart-shopping"></i>

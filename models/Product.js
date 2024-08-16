@@ -25,10 +25,14 @@ const productSchema= new mongoose.Schema({
     },
     reviews:[ // this will map review of 1 product to -> many reviews of review Model
         {
-            type: mongoose.Schema.ObjectId, // Review Model ke andar various reviews ko extract karna hai(uske liye reviews ki id chaiye apne ko)
+            type: mongoose.Schema.Types.ObjectId, // Review Model ke andar various reviews ko extract karna hai(uske liye reviews ki id chaiye apne ko)
             ref: 'Review'
         }
-    ]
+    ] ,
+    author:{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
+    }
 })
 
 // // Alternate method to delete reviews before deleting product( production pr use hota hai) -> Chal nahi raha tha abhi doubt sir se poochna-> alternate method use karo tabtk

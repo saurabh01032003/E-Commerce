@@ -12,8 +12,8 @@ router.get('/register' ,(req,res)=>{
 router.post('/register',async (req,res)=>{ // POST method se form submit hoga(views-> auth-> signup.ejs ke andar ka form) chalega ye route
 
     try{
-        let {email,password,username} = req.body; // post method se form submit hua hai
-        const user =  new User({email,username}); // user ko password alag argument me dena hai -> user ko ek me see documentation (plm register)
+        let {email,password,username,role} = req.body; // post method se form submit hua hai
+        const user =  new User({email,username,role}); // user ko password alag argument me dena hai -> user ko ek me see documentation (plm register)
         const newUser = await User.register(user,password); // register() is an static method -> isko hum schema ya model ke upar laga sakte(User is a method) -> naye user ko db me add karwana hai
         // res.redirect('/login');  // register karne ke baad hame dubara login karne ki jarurat nahi hai
         

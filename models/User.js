@@ -10,7 +10,11 @@ const userSchema= new mongoose.Schema({
     type: String,
     trim:true,
     required:true
-   } 
+   },
+   role:{
+    type:String,
+    required:true
+   }
 }) 
 
 userSchema.plugin(passportLocalMongoose); // for using all strategies inside passport-local-mongoose

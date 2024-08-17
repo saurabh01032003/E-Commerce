@@ -1,12 +1,34 @@
-<% layout('layouts/boylerplate')%>
+<% layout('layouts/boylerplate') %>
 
 <%- include('../partials/navbar') %>
 
-    <ul>
-        <h5>Products in your cart are : </h5>
+<div class="container mt-5">
+    <h5 class="mb-4">Products in Your Cart:</h5>
+    <ul class="list-group">
         <% for(let item of user.cart){ %>
-            <div class="list-group list-group-light">
-                <a href="#" class="list-group-item list-group-item-action px-3 border-0 rounded-3 mb-2 list-group-item-info d-inline" ><%= item.name %>  : <%=item.price%></a>
-            </div>
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                <div>
+                    <span class="fw-bold product-name"><%= item.name %></span>
+                    <span class="text-muted product-price"> - <b><%= item.price %></b></span>
+                </div>
+                
+                <button type="button" class="btn btn-outline-danger btn-sm btn-remove">Remove</button>
+            </li>
         <% } %>
     </ul>
+</div>
+
+<style>
+    .container {
+        max-width: 600px;
+    }
+    .product-name {
+        font-size: 1.1rem;
+    }
+    .product-price {
+        font-size: 0.9rem;
+    }
+    .btn-remove {
+        padding: 0.25rem 0.75rem;
+    }
+</style>

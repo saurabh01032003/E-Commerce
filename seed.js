@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
-const Product = require('./models/Product.js') // jo models->Product.js se export hua tha
+const Product = require('./models/Product.js'); // jo models->Product.js se export hua tha
+const { authorize } = require('passport');
 
 const products = [
     {
@@ -19,6 +20,7 @@ const products = [
         img:"https://images.unsplash.com/photo-1611186871348-b1ce696e52c9?w=700&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8bGFwdG9wJTIwYXBwbGV8ZW58MHx8MHx8fDA%3D",
         price:"Rs 150000", 
         desc:"(11-core CPU with 5 performance cores and 6 efficiency cores)"
+        
     },
     {
         name:"Apple AirPods Pro",

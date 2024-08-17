@@ -8,10 +8,11 @@ const ejsMate = require('ejs-mate');
 const methodOverride = require('method-override');
 const flash = require('connect-flash'); // for flash-messages (npm package)
 const session = require('express-session'); // session (cookie and session wala)
-const { nextTick } = require('process');
 const passport = require('passport');
 const LocalStrategy = require('passport-local');
 const User = require('./models/User');
+const dotenv = require('dotenv');
+dotenv.config({path:'.env'});
 
 
 
@@ -21,7 +22,9 @@ const authRoutes = require('./routes/auth') // waha se export hua hai(routes fol
 const cartRoutes = require('./routes/cart') // waha se export hua hai(routes folder ke andar cart.js se)
 
 
-mongoose.connect('mongodb://127.0.0.1:27017/shopping-app')
+// mongoose.connect('mongodb+srv://Saurabh:Password@cluster0.ljhcm.mongodb.net/E-commerceretryWrites=true&w=majority&appName=Cluster0')
+// mongodb+srv://saursnehu143:1Hxt0mVn7Y1QVOxw@cluster0.yzll2.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
+mongoose.connect(`${process.env.ATLAS_URL}`)
 .then(()=>{
     console.log("DB connected successfully")
 })
@@ -29,6 +32,7 @@ mongoose.connect('mongodb://127.0.0.1:27017/shopping-app')
     console.log("DB not connected, error occured");
     console.log(err);
 })
+
 
 // middleware for session
 let configSession = { //achha dikhne ke liye variable me assign kara hai

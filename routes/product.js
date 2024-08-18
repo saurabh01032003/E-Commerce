@@ -56,7 +56,7 @@ router.get('/products/:id',isLoggedIn,async (req,res)=>{
 })
 
 // Form to edit the product
-router.get('/products/:id/edit',isLoggedIn, async (req,res)=>{
+router.get('/products/:id/edit',isLoggedIn,isProductAuthor, async (req,res)=>{
     try{
         let {id} = req.params;
         let foundProduct = await Product.findById(id);

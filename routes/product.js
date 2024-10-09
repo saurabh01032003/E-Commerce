@@ -21,51 +21,51 @@ router.get('/products', async (req,res)=>{
 // See Routing Table for below
 
 // // To show form for adding new products
-// router.get('/products/new',isLoggedIn,(req,res)=>{
-//     try{
-//         res.render('products/new'); // views tk ka path pata hai hame
-//     }
-//     catch(e){
-//         res.status(500).render('error',{err:e.message});
-//     }
-// })
+router.get('/products/new',isLoggedIn,(req,res)=>{
+    try{
+        res.render('products/new'); // views tk ka path pata hai hame
+    }
+    catch(e){
+        res.status(500).render('error',{err:e.message});
+    }
+})
 
 // To actually add the products(form submit karne pr yaha aayega post->request hai)
-// router.post('/products', isLoggedIn,validateProduct, isSeller, async (req,res)=>{ // validate hone ke baad ->next() ke call hone ke baad call back function chalega async wala
-//     try{
-//         let {name,img,price,desc} = req.body; // post request se data hame req.body me milti hai
-//         await Product.create({name,img,price,desc,author: req.user._id}); // mongoDB method -> returns promise in js (isliye async and await)
-//         req.flash('success', 'New product added successfully');
-//         res.redirect('/products');
-//     }
-//     catch(e){
-//         res.status(500).render('error',{err:e.message});
-//     }
-// })
+router.post('/products', isLoggedIn,validateProduct, isSeller, async (req,res)=>{ // validate hone ke baad ->next() ke call hone ke baad call back function chalega async wala
+    try{
+        let {name,img,price,desc} = req.body; // post request se data hame req.body me milti hai
+        await Product.create({name,img,price,desc,author: req.user._id}); // mongoDB method -> returns promise in js (isliye async and await)
+        req.flash('success', 'New product added successfully');
+        res.redirect('/products');
+    }
+    catch(e){
+        res.status(500).render('error',{err:e.message});
+    }
+})
 
 // To Show particular Product
-// router.get('/products/:id',isLoggedIn,async (req,res)=>{
-//     try{
-//         let {id} = req.params;
-//         let foundProduct = await Product.findById(id).populate('reviews'); // Model ka method hai(findById) -> returns a promise //reviews ke array ke sath populate karo(link bana diya dono me)
-//         res.render('products/show',{foundProduct, msg:req.flash('msg')}); // second argument is flash messages
-//     }
-//     catch(e){
-//         res.status(500).render('error',{err:e.message});
-//     }
-// })
+router.get('/products/:id',isLoggedIn,async (req,res)=>{
+    try{
+        let {id} = req.params;
+        let foundProduct = await Product.findById(id).populate('reviews'); // Model ka method hai(findById) -> returns a promise //reviews ke array ke sath populate karo(link bana diya dono me)
+        res.render('products/show',{foundProduct, msg:req.flash('msg')}); // second argument is flash messages
+    }
+    catch(e){
+        res.status(500).render('error',{err:e.message});
+    }
+})
 
 // Form to edit the product
-// router.get('/products/:id/edit',isLoggedIn,isProductAuthor, async (req,res)=>{
-//     try{
-//         let {id} = req.params;
-//         let foundProduct = await Product.findById(id);
-//         res.render('products/edit',{foundProduct});
-//     }
-//     catch(e){
-//         res.status(500).render('error',{err:e.message});
-//     }
-// })
+router.get('/products/:id/edit',isLoggedIn,isProductAuthor, async (req,res)=>{
+    try{
+        let {id} = req.params;
+        let foundProduct = await Product.findById(id);
+        res.render('products/edit',{foundProduct});
+    }
+    catch(e){
+        res.status(500).render('error',{err:e.message});
+    }
+})
 
 // To actully edit the data in Db(hi when edit ka form submit hoga)
 router.patch('/products/:id' ,isLoggedIn,validateProduct,async (req,res)=>{
@@ -84,25 +84,25 @@ router.patch('/products/:id' ,isLoggedIn,validateProduct,async (req,res)=>{
 })
 
 // to delete a product (index.ejs ke andar form hai uska =>button click karne pr hi hoga)
-// router.delete('/products/:id' ,isLoggedIn,isProductAuthor, async (req,res)=>{
-//     try{
-//         let {id} = req.params;
-//         const product = await Product.findById(id);
+router.delete('/products/:id' ,isLoggedIn,isProductAuthor, async (req,res)=>{
+    try{
+        let {id} = req.params;
+        const product = await Product.findById(id);
 
-//         // // Upar jo product mila hai uska => delete all reviews (as it is an array)
-//         // // Product se pahle reviews delete kardo uska -> kyonki review bhi db me jagah le raha
-//         for(let id of product.reviews){
-//             await Review.findByIdAndDelete(id);
-//         }
+        // // Upar jo product mila hai uska => delete all reviews (as it is an array)
+        // // Product se pahle reviews delete kardo uska -> kyonki review bhi db me jagah le raha
+        for(let id of product.reviews){
+            await Review.findByIdAndDelete(id);
+        }
 
-//         await Product.findByIdAndDelete(id); // method to delete from db // is method ke chalne par schema me jo middleware hai 'findOneAndDelete' wo trigger ho raha -> jo yaha se id gyi hai whi product me catch hui hai waha
-//         req.flash('success', 'Product deleted successfully');
-//         res.redirect('/products');
-//     }
-//     catch(e){
-//         res.status(500).render('error',{err:e.message});
-//     }
-// })
+        await Product.findByIdAndDelete(id); // method to delete from db // is method ke chalne par schema me jo middleware hai 'findOneAndDelete' wo trigger ho raha -> jo yaha se id gyi hai whi product me catch hui hai waha
+        req.flash('success', 'Product deleted successfully');
+        res.redirect('/products');
+    }
+    catch(e){
+        res.status(500).render('error',{err:e.message});
+    }
+})
 
 
 module.exports = router;

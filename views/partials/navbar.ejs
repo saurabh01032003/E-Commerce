@@ -1,0 +1,38 @@
+<nav class="navbar navbar-expand-lg" style="background-color: #0077b6">
+  <div class="container-fluid">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+      <a class="navbar-brand" href="/"><i class="fas fa-shopping-basket" style="margin-right: 10px;font-size: 1.7rem;"></i>Shopping-Cart</a>
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="/products">Home</a>
+        </li>
+        <% if(currentUser && currentUser.role === 'seller'){ %>
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="/products/new">New</a>
+          </li>
+        <% } %>
+        <!-- <li class="nav-item">
+          <a class="nav-link disabled" aria-disabled="true">Disabled</a>
+        </li> -->
+      </ul>
+      <div class="d-flex" role="search">
+        <!-- conditional hai : agar kisi user ne login nahi kara hoga to nav-bar me sirf login dikhega -->
+        <% if(!currentUser){ %>
+          <a href="/login" class="nav-link mx-2">Login</a>
+        <% }else{ %>
+          <!-- Login hone ke baad kon se user ne login kara tha uska naam navbar me dikha dete hai -->
+          <a href="#" class="nav-link text-capitalize">Hello, <%= currentUser.username%></a>
+          <!-- else Kisi ne login kar diya hai to nav-bar me sirf logot dikhega -->
+          <a href="/" class="nav-link mx-2">
+            <i class="fa-solid fa-cart-shopping"></i>
+            <sup><span class="badge bg-danger"><%= currentUser.cart.length %></span></sup>
+          </a>
+          <a href="/logout" class="nav-link mx-2">Logout</a>
+        <% } %>
+      </div>
+    </div>
+  </div>
+</nav>

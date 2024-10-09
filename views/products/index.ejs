@@ -1,0 +1,138 @@
+
+<!-- layout() -> ek method hai na ki folder name -->
+<% layout('layouts/boylerplate')%>
+
+<%- include('../partials/navbar') %>
+<%- include('../partials/flash') %> 
+
+<!-- Bootstrap Carousel -->
+<div id="customCarousel" class="carousel slide mb-2 mt-2" data-bs-ride="carousel">
+  <div class="carousel-inner mx-auto">
+      <!-- Replace these with your desired images -->
+      <div class="carousel-item">
+          <img src="https://images.unsplash.com/photo-1610809589386-9ea41901eb54?w=1200&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTR8fGJlYXV0aWZ1bCUyMGNhcnxlbnwwfHwwfHx8MA%3D%3D" class="d-block w-100" alt="Image 2" style="height: 250px; object-fit: cover;">
+          <div class="carousel-caption d-none d-md-block">
+              <h5>Ferrari 2024</h5>
+              <i>Comming Soon</i>
+          </div>
+      </div>
+      <div class="carousel-item active">
+          <img src="https://images.unsplash.com/photo-1531297484001-80022131f5a1?w=700&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTl8fGxhcHRvcCUyMGFwcGxlfGVufDB8fDB8fHww" class="d-block w-100" alt="Image 1" style="height: 250px; object-fit: cover;">
+          <div class="carousel-caption d-none d-md-block">
+              <h5>Apple 2024 MacBook</h5>
+              <i>EMI option available</i>
+          </div>
+      </div>
+      <div class="carousel-item">
+          <img src="https://images.unsplash.com/photo-1650016883397-1225cb4e47b1?w=700&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8b25lcGx1cyUyMG1vYmlsZXxlbnwwfHwwfHx8MA%3D%3D" class="d-block w-100" alt="Image 3" style="height: 250px; object-fit: cover;">
+          <div class="carousel-caption d-none d-md-block">
+              <h5>OnePlus Nord CE</h5>
+              <i>Launcing on special occesion of Rakshabandhan</i>
+          </div>
+      </div>
+      <div class="carousel-item">
+        <img src="https://images.unsplash.com/photo-1603351154351-5e2d0600bb77?w=700&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8YWlycG9kc3xlbnwwfHwwfHx8MA%3D%3D" class="d-block w-100" alt="Image 3" style="height: 250px; object-fit: cover;">
+        <div class="carousel-caption d-none d-md-block">
+            <h5>Apple AirPods Pro</h5>
+            <i>Hurry Up! Special offer is going on 🏃‍♂️</i>
+        </div>
+    </div>
+  </div>
+  <button class="carousel-control-prev" type="button" data-bs-target="#customCarousel" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#customCarousel" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+  </button>
+</div>
+
+<div class="row">
+    <% for(let item of products){ %>
+        <div class="col-lg-4 mt-4">
+            <div class="card product-card shadow-sm mx-auto" style="width: 18rem;">
+                <img src="<%=item.img%>" class="card-img-top img-fluid" alt="<%=item.name%>">
+                <div class="card-body text-center">
+                    <h4 class="card-title product-name"><%=item.name%></h4>
+                    <h6 class="card-title product-price"><%=item.price%></h6>
+                    <p class="card-text product-desc"><%=item.desc%></p>
+                    <a href="/products/<%=item._id%>" class="btn btn-primary view-btn">View Product</a>
+
+                    <form class="d-inline-block delete-form" action="/products/<%=item._id%>?_method=DELETE" method="POST">
+                        <button class="btn btn-sm btn-danger delete-btn">Delete</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    <% } %>
+</div>
+
+
+<style>
+  /* Background for the entire page */
+  body {
+      background: linear-gradient(135deg, #f0f4c3 0%, #cfd8dc 100%);
+      font-family: 'Arial', sans-serif;
+  }
+
+  /* Background for the row containing the products */
+  .row {
+      margin: 0 auto;
+      padding: 20px;
+      background-color: rgba(255, 255, 255, 0.9);
+      border-radius: 10px;
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+  }
+
+  /* Product card styling */
+  .product-card {
+      background-color: #ffffff;
+      border: none;
+      transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+  }
+
+  .product-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+  }
+
+  .product-name {
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      color: #333;
+  }
+
+  .product-price {
+      font-size: 1.1rem;
+      color: #ff5722;
+      margin-bottom: 1rem;
+  }
+
+  .product-desc {
+      font-size: 0.9rem;
+      color: #777;
+      margin-bottom: 1.25rem;
+  }
+
+  .view-btn {
+      margin-bottom: 0.5rem;
+      background-color: #0288d1;
+      border-color: #0288d1;
+  }
+
+  .view-btn:hover {
+      background-color: #0277bd;
+      border-color: #0277bd;
+  }
+
+  .delete-form {
+      margin-top: 0.5rem;
+  }
+
+  .delete-btn {
+      padding: 0.25rem 0.75rem;
+      font-size: 0.85rem;
+  }
+</style>

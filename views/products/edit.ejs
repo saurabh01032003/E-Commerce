@@ -1,0 +1,90 @@
+
+<!-- layout() -> ek method hai na ki folder name -->
+<% layout('layouts/boylerplate')%>
+
+<%- include('../partials/navbar') %>
+
+<div class="row">
+    <div class="col-6 mx-auto">
+
+
+        <form action="/products/<%=foundProduct._id%>?_method=PATCH" method="POST" class="needs-validation" novalidate>
+            <div class="mb-3">
+                <label for="naam">Name :</label>
+                <!-- Value attribute is required -->
+                <input type="text" class="form-control" name="name" id="naam" placeholder="Enter Product Name" value="<%=foundProduct.name%>" required> 
+
+                <!-- Bootstrap se copied -->
+                <!-- You must provide data if it is required in schema or required attribute is added -->
+                <div class="valid-feedback"> Looks good!</div>
+
+                <!-- In case you haven't provided data as per schema -->
+                <div class="invalid-feedback">Please provide a valid name</div>
+            </div>
+
+            <div class="mb-3">
+                <label for="imag">Image :</label>
+                <input type="text" class="form-control" name="img" id="imag" placeholder="enter image address" value="<%=foundProduct.img%>" required>
+                <!-- You must provide data if it is required in schema or required attribute is added -->
+                <div class="valid-feedback"> Looks good!</div>
+
+                <!-- In case you haven't provided data as per schema -->
+                <div class="invalid-feedback">Please provide an image url</div>
+            </div>
+
+            <div class="mb-3">
+                <label for="paisa">Price :</label>
+                <input type="text" class="form-control" name="price" placeholder="Enter Product Name" value="<%=foundProduct.price%>" required>
+
+                <!-- You must provide data if it is required in schema or required attribute is added -->
+                <div class="valid-feedback"> Looks good!</div>
+
+                <!-- In case you haven't provided data as per schema -->
+                <div class="invalid-feedback">Please provide some amount</div>
+            </div>
+
+            <div class="mb-3">
+                <label for="desc">Desc :</label>
+                <textarea name="desc" id="desc" placeholder="Description of broduct" required> <%=foundProduct.desc%></textarea>
+
+                <!-- You must provide data if it is required in schema or required attribute is added -->
+                <div class="valid-feedback"> Looks good!</div>
+
+                <!-- In case you haven't provided data as per schema -->
+                <div class="invalid-feedback">Please provide description</div>
+            </div>
+             
+            <button class="btn btn-sm btn-success" type="submit">Edit Product</button>
+        </form>
+    </div>
+    
+</div>
+
+<!-- Validation ke liye -->
+<script>
+    <!-- Coppied from bootstrap -->
+// Example starter JavaScript for disabling form submissions if there are invalid fields
+(function () {
+  'use strict'
+
+  // Fetch all the forms we want to apply custom Bootstrap validation styles to
+  var forms = document.querySelectorAll('.needs-validation')
+
+  // Loop over them and prevent submission
+  Array.prototype.slice.call(forms)
+    .forEach(function (form) {
+      form.addEventListener('submit', function (event) {
+        if (!form.checkValidity()) {
+          event.preventDefault()
+          event.stopPropagation()
+        }
+
+        form.classList.add('was-validated')
+      }, false)
+    })
+})()
+</script>
+        
+</body>
+
+</html>
